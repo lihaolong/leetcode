@@ -1,3 +1,8 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /*
  * @lc app=leetcode.cn id=1 lang=java
  *
@@ -30,13 +35,21 @@ class Solution {
             return new int[]{};
         }
         int[] result = new int[2];
+        // for(int i=0;i<nums.length;i++){
+        //     int diff = target-nums[i];
+        //     for(int j=i+1;j<nums.length;j++){
+        //         if(diff==nums[j]){
+        //             result[0] = i;
+        //             result[1] = j;
+        //         }
+        //     }
+        // }
+        Map<Integer,Integer> temp = new HashMap<>();
         for(int i=0;i<nums.length;i++){
-            int diff = target-nums[i];
-            for(int j=i+1;j<nums.length;j++){
-                if(diff==nums[j]){
-                    result[0] = i;
-                    result[1] = j;
-                }
+            temp.put(target-nums[i], i);
+            if(i<nums.length-1&&temp.get(nums[i+1])!=null){
+                result[0] = temp.get(nums[i+1]);
+                result[1] = i+1;
             }
         }
         return result;
